@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OneNov Nodes - Blockchain Validators</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+    
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    
+    .animate-gradient {
+      background-size: 400% 400%;
+      animation: gradient 15s ease infinite;
+    }
+    
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    
+    .nav-link {
+      position: relative;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #f59e0b;
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    .active::after {
+      width: 100%;
+    }
+    
+    .network-card {
+      transition: all 0.3s ease;
+      background: linear-gradient(145deg, #1e293b, #0f172a);
+    }
+    
+    .network-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+    
+    .rotating-logo {
+      animation: rotate 20s linear infinite;
+    }
+  </style>
+</head>
+<body class="font-sans bg-gradient-to-br from-gray-900 to-gray-800 text-gray-100 min-h-screen">
+  <!-- Header -->
+  <header class="fixed top-0 left-0 w-full py-4 bg-gray-900/90 backdrop-blur-md z-50 border-b border-yellow-500/10">
+    <div class="container mx-auto px-4 flex justify-between items-center">
+      <div class="flex items-center space-x-3">
+        <img src="https://avatars.githubusercontent.com/u/95606017?s=400&u=957ddaf67bfa7ad3320805f2771b7a8d8a6e52b2&v=4" alt="OneNov Logo" class="w-10 h-10 rounded-full border-2 border-yellow-500">
+        <span class="text-xl font-bold bg-gradient-to-r from-yellow-500 to-orange-500 bg-clip-text text-transparent">OneNov</span>
+      </div>
+      
+      <button class="md:hidden text-gray-300 hover:text-yellow-500 focus:outline-none" id="mobileMenuBtn">
+        <i class="fas fa-bars text-2xl"></i>
+      </button>
+      
+      <nav class="hidden md:flex space-x-8" id="mainNav">
+        <a href="#" class="nav-link text-gray-300 hover:text-yellow-500 active">Home</a>
+        <a href="#services" class="nav-link text-gray-300 hover:text-yellow-500">Services</a>
+        <a href="https://explorer.onenov.xyz/" class="nav-link text-gray-300 hover:text-yellow-500">Explorer</a>
+        <a href="#contact" class="nav-link text-gray-300 hover:text-yellow-500">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div class="fixed inset-0 bg-gray-900/95 backdrop-blur-md z-40 flex flex-col items-center justify-center hidden" id="mobileMenu">
+    <button class="absolute top-6 right-6 text-gray-300 hover:text-yellow-500" id="closeMobileMenu">
+      <i class="fas fa-times text-2xl"></i>
+    </button>
+    <nav class="flex flex-col items-center space-y-8">
+      <a href="#" class="text-2xl text-gray-300 hover:text-yellow-500">Home</a>
+      <a href="#services" class="text-2xl text-gray-300 hover:text-yellow-500">Services</a>
+      <a href="https://explorer.onenov.xyz/" class="text-2xl text-gray-300 hover:text-yellow-500">Explorer</a>
+      <a href="#contact" class="text-2xl text-gray-300 hover:text-yellow-500">Contact</a>
+    </nav>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="min-h-screen flex items-center pt-20 pb-32 px-4 relative overflow-hidden">
+    <div class="absolute inset-0 z-0 opacity-20">
+      <div class="absolute top-0 left-0 w-full h-full bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
+    </div>
+    
+    <div class="container mx-auto max-w-6xl relative z-10 flex flex-col lg:flex-row items-center">
+      <!-- Text Content (Left Side) -->
+      <div class="lg:w-1/2 text-left mb-12 lg:mb-0">
+        <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent leading-tight">
+          OneNov Validator
+        </h1>
+        
+        <p class="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl leading-relaxed">
+          Professional node operations with enterprise-grade infrastructure, 24/7 monitoring, and maximum security for your staked assets
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="#services" class="px-8 py-4 bg-gradient-to-br from-yellow-500 to-orange-500 text-gray-900 font-semibold rounded-lg hover:shadow-lg hover:shadow-yellow-500/30 transition-all flex items-center justify-center gap-2">
+            <i class="fas fa-server"></i> View Validators
+          </a>
+          <a href="#contact" class="px-8 py-4 bg-gray-800 text-yellow-500 font-semibold rounded-lg border border-yellow-500/30 hover:bg-yellow-500/10 transition-all flex items-center justify-center gap-2">
+            <i class="fas fa-envelope"></i> Contact Us
+          </a>
+        </div>
+      </div>
+      
+      <!-- Logo (Right Side) -->
+      <div class="lg:w-1/2 flex justify-center lg:justify-end">
+        <div class="relative">
+          <div class="p-6 rounded-full bg-black/30 border border-yellow-500/20 shadow-xl">
+            <img src="https://avatars.githubusercontent.com/u/95606017?s=400&u=957ddaf67bfa7ad3320805f2771b7a8d8a6e52b2&v=4" 
+                 alt="OneNov Logo" 
+                 class="w-40 h-40 rounded-full border-4 border-yellow-500/50 rotating-logo">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="py-20 px-4 bg-gradient-to-b from-gray-900 to-gray-800" id="features">
+    <div class="container mx-auto max-w-6xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold mb-4 text-white">Why Choose OneNov</h2>
+        <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+          We provide reliable and secure validation services with enterprise-grade infrastructure
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-gray-800/50 rounded-xl p-8 border border-gray-700 card-hover">
+          <div class="w-16 h-16 mb-6 rounded-full bg-gradient-to-br from-yellow-500/10 to-orange-500/10 flex items-center justify-center text-yellow-500 text-2xl">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h3 class="text-2xl font-semibold mb-4 text-white">Maximum Security</h3>
+          <p class="text-gray-400">
+            Enterprise-grade security measures including DDoS protection, firewalls, and regular security audits.
+          </p>
+        </div>
+        
+        <div class="bg-gray-800/50 rounded-xl p-8 border border-gray-700 card-hover">
+          <div class="w-16 h-16 mb-6 rounded-full bg-gradient-to-br from-yellow-500/10 to-orange-500/10 flex items-center justify-center text-yellow-500 text-2xl">
+            <i class="fas fa-tachometer-alt"></i>
+          </div>
+          <h3 class="text-2xl font-semibold mb-4 text-white">High Performance</h3>
+          <p class="text-gray-400">
+            Optimized node configurations for maximum performance and minimal downtime.
+          </p>
+        </div>
+        
+        <div class="bg-gray-800/50 rounded-xl p-8 border border-gray-700 card-hover">
+          <div class="w-16 h-16 mb-6 rounded-full bg-gradient-to-br from-yellow-500/10 to-orange-500/10 flex items-center justify-center text-yellow-500 text-2xl">
+            <i class="fas fa-clock"></i>
+          </div>
+          <h3 class="text-2xl font-semibold mb-4 text-white">99.9% Uptime</h3>
+          <p class="text-gray-400">
+            Guaranteed reliability with redundant systems and 24/7 monitoring.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="py-20 px-4 bg-gradient-to-br from-gray-800 to-gray-900 animate-gradient" id="stats">
+    <div class="container mx-auto max-w-6xl">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div class="bg-gray-800/30 rounded-xl p-8 text-center border border-gray-700">
+          <div class="text-4xl md:text-5xl font-bold mb-2 text-yellow-500">12+</div>
+          <div class="text-gray-400">Blockchain Networks</div>
+        </div>
+        
+        <div class="bg-gray-800/30 rounded-xl p-8 text-center border border-gray-700">
+          <div class="text-4xl md:text-5xl font-bold mb-2 text-yellow-500">99.9%</div>
+          <div class="text-gray-400">Uptime Guarantee</div>
+        </div>
+        
+        <div class="bg-gray-800/30 rounded-xl p-8 text-center border border-gray-700">
+          <div class="text-4xl md:text-5xl font-bold mb-2 text-yellow-500">24/7</div>
+          <div class="text-gray-400">Monitoring</div>
+        </div>
+        
+        <div class="bg-gray-800/30 rounded-xl p-8 text-center border border-gray-700">
+          <div class="text-4xl md:text-5xl font-bold mb-2 text-yellow-500">100%</div>
+          <div class="text-gray-400">Slash Protection</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="py-20 px-4 bg-gray-900" id="services">
+    <div class="container mx-auto max-w-6xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold mb-4 text-white">Active Validators</h2>
+        <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+          We operate secure and reliable validators on these blockchain networks
+        </p>
+      </div>
+      
+      <!-- Tab Navigation -->
+      <div class="flex justify-center mb-12">
+        <div class="inline-flex rounded-lg bg-gray-800 p-1">
+          <button class="px-6 py-2 rounded-md text-white bg-yellow-500 font-medium" onclick="openTab('mainnet')">
+            Mainnet
+          </button>
+          <button class="px-6 py-2 rounded-md text-gray-300 hover:text-white font-medium" onclick="openTab('testnet')">
+            Testnet
+          </button>
+        </div>
+      </div>
+      
+      <!-- Mainnet Networks -->
+      <div id="mainnet" class="tab-content">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="mainnet-networks">
+          <!-- BlockX -->
+          <div class="network-card rounded-xl p-6 border border-gray-700">
+            <div class="flex items-center mb-4">
+              <div class="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center mr-4">
+                <img src="https://pbs.twimg.com/profile_images/1571914336288776193/HmxJDHvF_400x400.jpg" alt="BlockX" class="w-12 h-12 rounded-full">
+              </div>
+              <div>
+                <h4 class="text-xl font-semibold text-white">BlockX</h4>
+                <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold mt-1 bg-green-500/10 text-green-500">
+                  Mainnet
+                </span>
+              </div>
+            </div>
+            <div class="flex space-x-2 mt-4">
+              <a href="https://docs.blockxnet.com/validators/quick-start" target="_blank" class="flex-1 px-4 py-2 bg-gray-800 text-yellow-500 rounded-lg text-sm font-medium flex items-center justify-center gap-2 hover:bg-yellow-500/10 transition-colors">
+                <i class="fas fa-book"></i> Guide
+              </a>
+              <a href="https://ping.blockxnet.com/blockx/staking/blockxvaloper13qk0xhjtwu69x6jzl7cayr90456vzpzp0s9gg7" target="_blank" class="flex-1 px-4 py-2 bg-green-500/10 text-green-500 rounded-lg text-sm font-medium flex items-center justify-center gap-2 hover:bg-green-500/20 transition-colors">
+                <i class="fas fa-coins"></i> Stake
+              </a>
+            </div>
+          </div>
+
+          <!-- Uptick -->
+          <div class="network-card rounded-xl p-6 border border-gray-700">
+            <div class="flex items-center mb-4">
+              <div class="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center mr-4">
+                <img src="https://pbs.twimg.com/profile_images/1689125621308551173/Tvf1kL3d_400x400.jpg" alt="Uptick" class="w-12 h-12 rounded-full">
+              </div>
+              <div>
+                <h4 class="text-xl font-semibold text-white">Uptick</h4>
+                <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold mt-1 bg-green-500/10 text-green-500">
+                  Mainnet
+                </span>
+              </div>
+            </div>
+            <div class="flex space-x-2 mt-4">
+              <a href="Uptick.html" target="_blank" class="flex-1 px-4 py-2 bg-gray-800 text-yellow-500 rounded-lg text-sm font-medium flex items-center justify-center gap-2 hover:bg-yellow-500/10 transition-colors">
+                <i class="fas fa-book"></i> Guide
+              </a>
+              <a href="https://explorer.uptick.network/uptick-mainnet/staking/uptickvaloper1u4wg5jssy2n8aap3e0e0mwkw3vk0z5uew43y39" target="_blank" class="flex-1 px-4 py-2 bg-green-500/10 text-green-500 rounded-lg text-sm font-medium flex items-center justify-center gap-2 hover:bg-green-500/20 transition-colors">
+                <i class="fas fa-coins"></i> Stake
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Testnet Networks -->
+      <div id="testnet" class="tab-content hidden">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="testnet-networks">
+          <!-- Symphony -->
+          <div class="network-card rounded-xl p-6 border border-gray-700">
+            <div class="flex items-center mb-4">
+              <div class="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center mr-4">
+                <img src="https://pbs.twimg.com/profile_images/1896255605909725184/rC9pD5EQ_400x400.jpg" alt="Symphony" class="w-12 h-12 rounded-full">
+              </div>
+              <div>
+                <h4 class="text-xl font-semibold text-white">Symphony</h4>
+                <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold mt-1 bg-orange-500/10 text-orange-500">
+                  Testnet
+                </span>
+              </div>
+            </div>
+            <div class="flex space-x-2 mt-4">
+              <a href="symphony.html" target="_blank" class="flex-1 px-4 py-2 bg-gray-800 text-yellow-500 rounded-lg text-sm font-medium flex items-center justify-center gap-2 hover:bg-yellow-500/10 transition-colors">
+                <i class="fas fa-book"></i> Guide
+              </a>
+              <a href="https://testnet.ping.pub/symphony/staking/symphonyvaloper1cjdxm4urpdp42un8xjsdx6469h3nlx26smxv50" target="_blank" class="flex-1 px-4 py-2 bg-green-500/10 text-green-500 rounded-lg text-sm font-medium flex items-center justify-center gap-2 hover:bg-green-500/20 transition-colors">
+                <i class="fas fa-coins"></i> Stake
+              </a>
+            </div>
+          </div>
+
+          <!-- 0g Labs -->
+          <div class="network-card rounded-xl p-6 border border-gray-700">
+            <div class="flex items-center mb-4">
+              <div class="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center mr-4">
+                <img src="https://pbs.twimg.com/profile_images/1841632086475866113/n6vPDZqb_400x400.jpg" alt="0g Labs" class="w-12 h-12 rounded-full">
+              </div>
+              <div>
+                <h4 class="text-xl font-semibold text-white">0g Labs</h4>
+                <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold mt-1 bg-orange-500/10 text-orange-500">
+                  Testnet
+                </span>
+              </div>
+            </div>
+            <div class="flex space-x-2 mt-4">
+              <a href="0glabs.html" target="_blank" class="flex-1 px-4 py-2 bg-gray-800 text-yellow-500 rounded-lg text-sm font-medium flex items-center justify-center gap-2 hover:bg-yellow-500/10 transition-colors">
+                <i class="fas fa-book"></i> Guide
+              </a>
+              <a href="https://0g.exploreme.pro/validators/0gvaloper1v04wr7qtqcjllqu5pm947cd3f9klqpefmc3sek" target="_blank" class="flex-1 px-4 py-2 bg-green-500/10 text-green-500 rounded-lg text-sm font-medium flex items-center justify-center gap-2 hover:bg-green-500/20 transition-colors">
+                <i class="fas fa-coins"></i> Stake
+              </a>
+            </div>
+          </div>
+
+          <!-- Kiichain -->
+          <div class="network-card rounded-xl p-6 border border-gray-700">
+            <div class="flex items-center mb-4">
+              <div class="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center mr-4">
+                <img src="https://pbs.twimg.com/profile_images/1800553180083666944/zZe128CW_400x400.jpg" alt="Kiichain" class="w-12 h-12 rounded-full">
+              </div>
+              <div>
+                <h4 class="text-xl font-semibold text-white">Kiichain</h4>
+                <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold mt-1 bg-orange-500/10 text-orange-500">
+                  Testnet
+                </span>
+              </div>
+            </div>
+            <div class="flex space-x-2 mt-4">
+              <a href="kiichain.html" target="_blank" class="flex-1 px-4 py-2 bg-gray-800 text-yellow-500 rounded-lg text-sm font-medium flex items-center justify-center gap-2 hover:bg-yellow-500/10 transition-colors">
+                <i class="fas fa-book"></i> Guide
+              </a>
+              <a href="https://explorer.kiichain.io/staking/kiivaloper1cjdxm4urpdp42un8xjsdx6469h3nlx26cu0axj" target="_blank" class="flex-1 px-4 py-2 bg-green-500/10 text-green-500 rounded-lg text-sm font-medium flex items-center justify-center gap-2 hover:bg-green-500/20 transition-colors">
+                <i class="fas fa-coins"></i> Stake
+              </a>
+            </div>
+          </div>
+
+          <!-- Lumera -->
+          <div class="network-card rounded-xl p-6 border border-gray-700">
+            <div class="flex items-center mb-4">
+              <div class="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center mr-4">
+                <img src="https://pbs.twimg.com/profile_images/1914464060265127936/z2ONvvpp_400x400.png" alt="Lumera" class="w-12 h-12 rounded-full">
+              </div>
+              <div>
+                <h4 class="text-xl font-semibold text-white">Lumera Protocol</h4>
+                <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold mt-1 bg-orange-500/10 text-orange-500">
+                  Testnet
+                </span>
+              </div>
+            </div>
+            <div class="flex space-x-2 mt-4">
+              <a href="Lumera.html" target="_blank" class="flex-1 px-4 py-2 bg-gray-800 text-yellow-500 rounded-lg text-sm font-medium flex items-center justify-center gap-2 hover:bg-yellow-500/10 transition-colors">
+                <i class="fas fa-book"></i> Guide
+              </a>
+              <a href="https://portal.testnet.lumera.io/lumera-testnet-1/staking/lumeravaloper1cjdxm4urpdp42un8xjsdx6469h3nlx26ryareg" target="_blank" class="flex-1 px-4 py-2 bg-green-500/10 text-green-500 rounded-lg text-sm font-medium flex items-center justify-center gap-2 hover:bg-green-500/20 transition-colors">
+                <i class="fas fa-coins"></i> Stake
+              </a>
+            </div>
+          </div>
+
+          <!-- Empeirias -->
+          <div class="network-card rounded-xl p-6 border border-gray-700">
+            <div class="flex items-center mb-4">
+              <div class="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center mr-4">
+                <img src="https://pbs.twimg.com/profile_images/1887069794798632960/IvxbLJcg_400x400.jpg" alt="Empeirias" class="w-12 h-12 rounded-full">
+              </div>
+              <div>
+                <h4 class="text-xl font-semibold text-white">Empeirias</h4>
+                <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold mt-1 bg-orange-500/10 text-orange-500">
+                  Testnet
+                </span>
+              </div>
+            </div>
+            <div class="flex space-x-2 mt-4">
+              <a href="Empeirias.html" target="_blank" class="flex-1 px-4 py-2 bg-gray-800 text-yellow-500 rounded-lg text-sm font-medium flex items-center justify-center gap-2 hover:bg-yellow-500/10 transition-colors">
+                <i class="fas fa-book"></i> Guide
+              </a>
+              <a href="https://testnet.ping.pub/empe/staking/empevaloper1cjdxm4urpdp42un8xjsdx6469h3nlx2660px64" target="_blank" class="flex-1 px-4 py-2 bg-green-500/10 text-green-500 rounded-lg text-sm font-medium flex items-center justify-center gap-2 hover:bg-green-500/20 transition-colors">
+                <i class="fas fa-coins"></i> Stake
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="py-20 px-4 bg-gray-800" id="contact">
+    <div class="container mx-auto max-w-6xl">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div>
+          <h2 class="text-4xl font-bold mb-6 text-white">Get In Touch</h2>
+          <p class="text-xl text-gray-400 mb-8">
+            Have questions about our validator services? Reach out to our team for more information.
+          </p>
+          
+          <div class="space-y-6">
+            <div class="flex items-start">
+              <div class="w-12 h-12 rounded-full bg-yellow-500/10 flex items-center justify-center text-yellow-500 mr-4">
+                <i class="fas fa-envelope text-xl"></i>
+              </div>
+              <div>
+                <h4 class="text-lg font-semibold text-white mb-1">Email Us</h4>
+                <p class="text-gray-400">onenov0209@gmail.com</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start">
+              <div class="w-12 h-12 rounded-full bg-yellow-500/10 flex items-center justify-center text-yellow-500 mr-4">
+                <i class="fab fa-telegram text-xl"></i>
+              </div>
+              <div>
+                <h4 class="text-lg font-semibold text-white mb-1">Telegram</h4>
+                <p class="text-gray-400">@OneNov02</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start">
+              <div class="w-12 h-12 rounded-full bg-yellow-500/10 flex items-center justify-center text-yellow-500 mr-4">
+                <i class="fas fa-map-marker-alt text-xl"></i>
+              </div>
+              <div>
+                <h4 class="text-lg font-semibold text-white mb-1">Location</h4>
+                <p class="text-gray-400">Global Validator Services</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-12">
+            <h4 class="text-lg font-semibold text-white mb-4">Follow Us</h4>
+            <div class="flex space-x-4">
+              <a href="https://twitter.com/Surya021292" target="_blank" class="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center text-gray-300 hover:bg-yellow-500 hover:text-white transition-colors">
+                <i class="fab fa-twitter text-xl"></i>
+              </a>
+              <a href="https://t.me/OneNov02" target="_blank" class="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center text-gray-300 hover:bg-yellow-500 hover:text-white transition-colors">
+                <i class="fab fa-telegram text-xl"></i>
+              </a>
+              <a href="https://github.com/OneNov0209" target="_blank" class="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center text-gray-300 hover:bg-yellow-500 hover:text-white transition-colors">
+                <i class="fab fa-github text-xl"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-gray-900 rounded-xl p-8 border border-gray-700">
+          <h3 class="text-2xl font-semibold mb-6 text-white">Send Us a Message</h3>
+          <form id="contactForm">
+            <div class="mb-6">
+              <label for="name" class="block text-gray-400 mb-2">Your Name</label>
+              <input type="text" id="name" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 text-white" required>
+            </div>
+            <div class="mb-6">
+              <label for="email" class="block text-gray-400 mb-2">Email Address</label>
+              <input type="email" id="email" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 text-white" required>
+            </div>
+            <div class="mb-6">
+              <label for="subject" class="block text-gray-400 mb-2">Subject</label>
+              <input type="text" id="subject" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 text-white" required>
+            </div>
+            <div class="mb-6">
+              <label for="message" class="block text-gray-400 mb-2">Message</label>
+              <textarea id="message" rows="5" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 text-white" required></textarea>
+            </div>
+            <button type="submit" class="w-full px-6 py-4 bg-gradient-to-br from-yellow-500 to-orange-500 text-gray-900 font-semibold rounded-lg hover:shadow-lg transition-all">
+              <i class="fas fa-paper-plane mr-2"></i> Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12 px-4 bg-gray-900 border-t border-gray-800">
+    <div class="container mx-auto max-w-6xl">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        <div>
+          <div class="flex items-center space-x-3 mb-6">
+            <img src="https://avatars.githubusercontent.com/u/95606017?s=400&u=957ddaf67bfa7ad3320805f2771b7a8d8a6e52b2&v=4" alt="OneNov Logo" class="w-10 h-10 rounded-full border-2 border-yellow-500">
+            <span class="text-xl font-bold bg-gradient-to-r from-yellow-500 to-orange-500 bg-clip-text text-transparent">OneNov</span>
+          </div>
+          <p class="text-gray-400 mb-6">
+            Professional blockchain validator services with enterprise-grade infrastructure and 24/7 monitoring.
+          </p>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold text-white mb-6">Quick Links</h4>
+          <ul class="space-y-3">
+            <li><a href="#" class="text-gray-400 hover:text-yellow-500 transition-colors">Home</a></li>
+            <li><a href="#services" class="text-gray-400 hover:text-yellow-500 transition-colors">Services</a></li>
+            <li><a href="https://explorer.onenov.xyz/" class="text-gray-400 hover:text-yellow-500 transition-colors">Explorer</a></li>
+            <li><a href="#contact" class="text-gray-400 hover:text-yellow-500 transition-colors">Contact</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold text-white mb-6">Supported Networks</h4>
+          <ul class="space-y-3">
+            <li><a href="#services" class="text-gray-400 hover:text-yellow-500 transition-colors">BlockX Network</a></li>
+            <li><a href="#services" class="text-gray-400 hover:text-yellow-500 transition-colors">Uptick Network</a></li>
+            <li><a href="#services" class="text-gray-400 hover:text-yellow-500 transition-colors">Cortensor</a></li>
+            <li><a href="#services" class="text-gray-400 hover:text-yellow-500 transition-colors">Symphony</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold text-white mb-6">Connect</h4>
+          <div class="flex space-x-4 mb-6">
+            <a href="https://twitter.com/Surya021292" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-300 hover:bg-yellow-500 hover:text-white transition-colors">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://t.me/OneNov02" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-300 hover:bg-yellow-500 hover:text-white transition-colors">
+              <i class="fab fa-telegram"></i>
+            </a>
+            <a href="https://github.com/OneNov0209" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-300 hover:bg-yellow-500 hover:text-white transition-colors">
+              <i class="fab fa-github"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="pt-6 border-t border-gray-800 text-center text-gray-500">
+        <p>&copy; 2025 OneNov. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const closeMobileMenu = document.getElementById('closeMobileMenu');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.remove('hidden');
+    });
+    
+    closeMobileMenu.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+    });
+    
+    // Tab functionality
+    function openTab(tabId) {
+      // Hide all tab contents
+      document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.add('hidden');
+      });
+      
+      // Remove active class from all buttons
+      document.querySelectorAll('.bg-yellow-500').forEach(btn => {
+        btn.classList.remove('bg-yellow-500', 'text-white');
+        btn.classList.add('text-gray-300');
+      });
+      
+      // Show the selected tab content
+      document.getElementById(tabId).classList.remove('hidden');
+      
+      // Add active class to clicked button
+      event.currentTarget.classList.add('bg-yellow-500', 'text-white');
+      event.currentTarget.classList.remove('text-gray-300');
+    }
+    
+    // Form submission
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+      contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Thank you for your message! We will get back to you soon.');
+        this.reset();
+      });
+    }
+    
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+          
+          // Close mobile menu if open
+          if (!mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('hidden');
+          }
+        }
+      });
+    });
+    
+    // Function to add new network
+    function addNetwork(type, networkData) {
+      const containerId = `${type}-networks`;
+      const container = document.getElementById(containerId);
+      
+      if (!container) return;
+      
+      const badgeClass = type === 'mainnet' ? 'bg-green-500/10 text-green-500' : 'bg-orange-500/10 text-orange-500';
+      
+      const networkCard = document.createElement('div');
+      networkCard.className = 'network-card rounded-xl p-6 border border-gray-700';
+      networkCard.innerHTML = `
+        <div class="flex items-center mb-4">
+          <div class="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center mr-4">
+            <img src="${networkData.logo}" alt="${networkData.name}" class="w-12 h-12 rounded-full">
+          </div>
+          <div>
+            <h4 class="text-xl font-semibold text-white">${networkData.name}</h4>
+            <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold mt-1 ${badgeClass}">
+              ${type === 'mainnet' ? 'Mainnet' : 'Testnet'}
+            </span>
+          </div>
+        </div>
+        <div class="flex space-x-2 mt-4">
+          <a href="${networkData.guideUrl}" target="_blank" class="flex-1 px-4 py-2 bg-gray-800 text-yellow-500 rounded-lg text-sm font-medium flex items-center justify-center gap-2 hover:bg-yellow-500/10 transition-colors">
+            <i class="fas fa-book"></i> Guide
+          </a>
+          <a href="${networkData.stakeUrl}" target="_blank" class="flex-1 px-4 py-2 bg-green-500/10 text-green-500 rounded-lg text-sm font-medium flex items-center justify-center gap-2 hover:bg-green-500/20 transition-colors">
+            <i class="fas fa-coins"></i> Stake
+          </a>
+        </div>
+      `;
+      
+      container.appendChild(networkCard);
+    }
+    
+    // Example usage to add a new network:
+    // addNetwork('mainnet', {
+    //   name: 'New Network',
+    //   logo: 'https://example.com/logo.jpg',
+    //   guideUrl: 'https://example.com/guide',
+    //   stakeUrl: 'https://example.com/stake'
+    // });
+    
+    // Initialize mainnet as active tab
+    document.addEventListener('DOMContentLoaded', function() {
+      openTab('mainnet');
+    });
+  </script>
+</body>
+</html>
